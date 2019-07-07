@@ -1,0 +1,24 @@
+dist: bionic
+
+env:
+  global:
+    - UBUNTU_BRANCH='bionic'
+    - VAGRANT_URL='https://releases.hashicorp.com/vagrant/2.2.5/vagrant_2.2.5_x86_64.deb'
+
+before_script:
+  # Install VirtualBox
+  - UBUNTU_CODENAME='bionic'
+  - SOURCE_VIRTUALBOX="deb https://download.virtualbox.org/virtualbox/debian $UBUNTU_BRANCH contrib"
+  - echo $SOURCE_VIRTUALBOX | sudo tee /etc/apt/sources.list.d/virtualbox.list
+  - sudo apt-get update
+  - sudo apt-get install virtualbox-6.0
+  - VBoxManage --version
+  # Install Vagrant
+  - sudo wget -nv $VAGRANT_URL
+  # Install Vagrant package
+  - sudo dpkg -i vagrant_*_x86_64.deb
+  # Vagrant correctly installed?
+  - vagrant --version
+
+script:
+  - bash build.sh
