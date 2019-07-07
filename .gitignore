@@ -1,0 +1,8 @@
+*.DS_Store
+.vagrant
+log
+*.log
+*.box
+docker-*
+Vagrantfile
+Vagrantfile*
